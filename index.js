@@ -17,7 +17,17 @@ mongoose
   })
   .then(() => {
     // Run your code here, after you have insured that the connection was made
+    Recipe.create({
+      title:'Upma',
+      level: 'Easy Peasy',
+      ingredients: ['rava', 'water', 'onions', 'water', 'oil'],
+      cuisine: 'some cuisine',
+      dishType: 'breakfast',
+      duration: 10,
+      creator: 'Chef Anil'
+     })
   })
+  // .then(()=> mongoose.connection.close())
   .catch(error => {
     console.error('Error connecting to the database', error);
   });
