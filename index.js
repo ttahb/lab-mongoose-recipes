@@ -30,21 +30,22 @@ mongoose
       creator: 'HEBBARS KITCHEN'
      })
   })
-  .then((recipe)=> console.log(`first Recipe title - ${recipe.title}`) )
-  .then(()=> Recipe.insertMany(data))
+  .then((recipe)=> {
+    console.log(`first Recipe title - ${recipe.title}`)
+    return Recipe.insertMany(data)})
   .then((data) =>
     data.forEach(recipe => console.log(`Recipe title: ${recipe.title}`)))
   .then(() => 
     Recipe.findOneAndUpdate({title: 'Rigatoni alla Genovese'}, {duration:100}, {new: true})
   )
-  .then((updatedRecipe) =>  
-    console.log(`updated Recipe: ${updatedRecipe}`)
-  )
-  .then(() =>
-    Recipe.deleteOne( {title: 'Carrot Cake'})
-  )
-  .then(()=> console.log("data deleted"))
-  .then(()=> mongoose.connection.close())
+  .then((updatedRecipe) => {
+    console.log(`updated Recipe: ${updatedRecipe}`);
+    Recipe.deleteOne( {title: 'Carrot Cake'});
+  })
+  .then(()=> {
+    console.log("data deleted");
+    mongoose.connection.close();
+  })
   .catch(error => {
     console.error('Error connecting to the database', error);
   });
